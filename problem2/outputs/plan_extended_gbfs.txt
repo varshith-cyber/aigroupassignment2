@@ -1,0 +1,145 @@
+=== extended | Greedy best-first search, h_add (satisficing)
+  plan length          : 61
+  actions in plan      : 61
+  states expanded      : 721
+  states generated     : 3112
+  planning time (s)    : 0.382
+  plan:
+     1. (move curiosity base sitea)
+     2. (collect-soft curiosity rock1 sitea bay1)
+     3. (move curiosity sitea base)
+     4. (deposit curiosity rock1 base bay1)
+     5. (move curiosity base sitea)
+     6. (move curiosity sitea sitec)
+     7. (move curiosity sitec sitee)
+     8. (pick-drill curiosity drill1 sitee)
+     9. (move curiosity sitee sitec)
+    10. (collect-hard curiosity rock3 sitec bay1 drill1)
+    11. (move curiosity sitec sitea)
+    12. (move curiosity sitea base)
+    13. (deposit curiosity rock3 base bay1)
+    14. (move curiosity base sitea)
+    15. (move curiosity sitea sitec)
+    16. (move curiosity sitec sitee)
+    17. (collect-soft curiosity rock6 sitee bay1)
+    18. (move curiosity sitee sitec)
+    19. (move curiosity sitec sitea)
+    20. (move curiosity sitea base)
+    21. (deposit curiosity rock6 base bay1)
+    22. (move curiosity base sitea)
+    23. (move curiosity sitea sitec)
+    24. (move curiosity sitec sited)
+    25. (collect-soft curiosity rock4 sited bay1)
+    26. (move curiosity sited sitee)
+    27. (move curiosity sitee sitec)
+    28. (move curiosity sitec sitea)
+    29. (move curiosity sitea base)
+    30. (deposit curiosity rock4 base bay1)
+    31. (move curiosity base sitea)
+    32. (move curiosity sitea sitec)
+    33. (move curiosity sitec sitee)
+    34. (move curiosity sitee sitef)
+    35. (collect-hard curiosity rock5 sitef bay1 drill1)
+    36. (move curiosity sitef sitee)
+    37. (move curiosity sitee sitec)
+    38. (move curiosity sitec sitea)
+    39. (move curiosity sitea base)
+    40. (deposit curiosity rock5 base bay1)
+    41. (move curiosity base sitea)
+    42. (move curiosity sitea sitec)
+    43. (move curiosity sitec sitee)
+    44. (move curiosity sitee sitef)
+    45. (collect-hard curiosity rock7 sitef bay1 drill1)
+    46. (move curiosity sitef sitee)
+    47. (move curiosity sitee sitec)
+    48. (move curiosity sitec sitea)
+    49. (move curiosity sitea base)
+    50. (deposit curiosity rock7 base bay1)
+    51. (move curiosity base sitea)
+    52. (move curiosity sitea sitec)
+    53. (move curiosity sitec sited)
+    54. (move curiosity sited siteb)
+    55. (collect-soft curiosity rock2 siteb bay1)
+    56. (move curiosity siteb sited)
+    57. (move curiosity sited sitee)
+    58. (move curiosity sitee sitec)
+    59. (move curiosity sitec sitea)
+    60. (move curiosity sitea base)
+    61. (deposit curiosity rock2 base bay1)
+  validation:
+  initial state has 31 facts
+  step  1: (move curiosity base sitea)                          -1 +1
+  step  2: (collect-soft curiosity rock1 sitea bay1)            -2 +1
+  step  3: (move curiosity sitea base)                          -1 +1
+  step  4: (deposit curiosity rock1 base bay1)                  -1 +2
+  step  5: (move curiosity base sitea)                          -1 +1
+  step  6: (move curiosity sitea sitec)                         -1 +1
+  step  7: (move curiosity sitec sitee)                         -1 +1
+  step  8: (pick-drill curiosity drill1 sitee)                  -1 +1
+  step  9: (move curiosity sitee sitec)                         -1 +1
+  step 10: (collect-hard curiosity rock3 sitec bay1 drill1)     -2 +1
+  step 11: (move curiosity sitec sitea)                         -1 +1
+  step 12: (move curiosity sitea base)                          -1 +1
+  step 13: (deposit curiosity rock3 base bay1)                  -1 +2
+  step 14: (move curiosity base sitea)                          -1 +1
+  step 15: (move curiosity sitea sitec)                         -1 +1
+  step 16: (move curiosity sitec sitee)                         -1 +1
+  step 17: (collect-soft curiosity rock6 sitee bay1)            -2 +1
+  step 18: (move curiosity sitee sitec)                         -1 +1
+  step 19: (move curiosity sitec sitea)                         -1 +1
+  step 20: (move curiosity sitea base)                          -1 +1
+  step 21: (deposit curiosity rock6 base bay1)                  -1 +2
+  step 22: (move curiosity base sitea)                          -1 +1
+  step 23: (move curiosity sitea sitec)                         -1 +1
+  step 24: (move curiosity sitec sited)                         -1 +1
+  step 25: (collect-soft curiosity rock4 sited bay1)            -2 +1
+  step 26: (move curiosity sited sitee)                         -1 +1
+  step 27: (move curiosity sitee sitec)                         -1 +1
+  step 28: (move curiosity sitec sitea)                         -1 +1
+  step 29: (move curiosity sitea base)                          -1 +1
+  step 30: (deposit curiosity rock4 base bay1)                  -1 +2
+  step 31: (move curiosity base sitea)                          -1 +1
+  step 32: (move curiosity sitea sitec)                         -1 +1
+  step 33: (move curiosity sitec sitee)                         -1 +1
+  step 34: (move curiosity sitee sitef)                         -1 +1
+  step 35: (collect-hard curiosity rock5 sitef bay1 drill1)     -2 +1
+  step 36: (move curiosity sitef sitee)                         -1 +1
+  step 37: (move curiosity sitee sitec)                         -1 +1
+  step 38: (move curiosity sitec sitea)                         -1 +1
+  step 39: (move curiosity sitea base)                          -1 +1
+  step 40: (deposit curiosity rock5 base bay1)                  -1 +2
+  step 41: (move curiosity base sitea)                          -1 +1
+  step 42: (move curiosity sitea sitec)                         -1 +1
+  step 43: (move curiosity sitec sitee)                         -1 +1
+  step 44: (move curiosity sitee sitef)                         -1 +1
+  step 45: (collect-hard curiosity rock7 sitef bay1 drill1)     -2 +1
+  step 46: (move curiosity sitef sitee)                         -1 +1
+  step 47: (move curiosity sitee sitec)                         -1 +1
+  step 48: (move curiosity sitec sitea)                         -1 +1
+  step 49: (move curiosity sitea base)                          -1 +1
+  step 50: (deposit curiosity rock7 base bay1)                  -1 +2
+  step 51: (move curiosity base sitea)                          -1 +1
+  step 52: (move curiosity sitea sitec)                         -1 +1
+  step 53: (move curiosity sitec sited)                         -1 +1
+  step 54: (move curiosity sited siteb)                         -1 +1
+  step 55: (collect-soft curiosity rock2 siteb bay1)            -2 +1
+  step 56: (move curiosity siteb sited)                         -1 +1
+  step 57: (move curiosity sited sitee)                         -1 +1
+  step 58: (move curiosity sitee sitec)                         -1 +1
+  step 59: (move curiosity sitec sitea)                         -1 +1
+  step 60: (move curiosity sitea base)                          -1 +1
+  step 61: (deposit curiosity rock2 base bay1)                  -1 +2
+
+  Final state (dynamic facts):
+    (bay-empty bay1)
+    (bay-empty bay2)
+    (has-drill curiosity drill1)
+    (rock-at rock1 base)
+    (rock-at rock2 base)
+    (rock-at rock3 base)
+    (rock-at rock4 base)
+    (rock-at rock5 base)
+    (rock-at rock6 base)
+    (rock-at rock7 base)
+    (rover-at curiosity base)
+  Goal satisfied: True

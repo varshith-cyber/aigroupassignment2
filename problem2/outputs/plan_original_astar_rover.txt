@@ -1,0 +1,72 @@
+=== original | A* with a problem-specific admissible heuristic (optimal)
+  plan length          : 25
+  actions in plan      : 25
+  states expanded      : 2649
+  states generated     : 10692
+  planning time (s)    : 0.109
+  plan:
+     1. (move curiosity base siteb)
+     2. (collect-soft curiosity rock2 siteb bay1)
+     3. (move curiosity siteb sited)
+     4. (collect-soft curiosity rock4 sited bay2)
+     5. (move curiosity sited siteb)
+     6. (move curiosity siteb base)
+     7. (deposit curiosity rock2 base bay1)
+     8. (deposit curiosity rock4 base bay2)
+     9. (move curiosity base sitea)
+    10. (move curiosity sitea sitec)
+    11. (move curiosity sitec sitee)
+    12. (pick-drill curiosity drill1 sitee)
+    13. (move curiosity sitee sitef)
+    14. (collect-hard curiosity rock5 sitef bay1 drill1)
+    15. (move curiosity sitef sitee)
+    16. (move curiosity sitee sitec)
+    17. (collect-hard curiosity rock3 sitec bay2 drill1)
+    18. (move curiosity sitec sitea)
+    19. (move curiosity sitea base)
+    20. (deposit curiosity rock3 base bay2)
+    21. (move curiosity base sitea)
+    22. (collect-soft curiosity rock1 sitea bay2)
+    23. (move curiosity sitea base)
+    24. (deposit curiosity rock1 base bay2)
+    25. (deposit curiosity rock5 base bay1)
+  validation:
+  initial state has 29 facts
+  step  1: (move curiosity base siteb)                          -1 +1
+  step  2: (collect-soft curiosity rock2 siteb bay1)            -2 +1
+  step  3: (move curiosity siteb sited)                         -1 +1
+  step  4: (collect-soft curiosity rock4 sited bay2)            -2 +1
+  step  5: (move curiosity sited siteb)                         -1 +1
+  step  6: (move curiosity siteb base)                          -1 +1
+  step  7: (deposit curiosity rock2 base bay1)                  -1 +2
+  step  8: (deposit curiosity rock4 base bay2)                  -1 +2
+  step  9: (move curiosity base sitea)                          -1 +1
+  step 10: (move curiosity sitea sitec)                         -1 +1
+  step 11: (move curiosity sitec sitee)                         -1 +1
+  step 12: (pick-drill curiosity drill1 sitee)                  -1 +1
+  step 13: (move curiosity sitee sitef)                         -1 +1
+  step 14: (collect-hard curiosity rock5 sitef bay1 drill1)     -2 +1
+  step 15: (move curiosity sitef sitee)                         -1 +1
+  step 16: (move curiosity sitee sitec)                         -1 +1
+  step 17: (collect-hard curiosity rock3 sitec bay2 drill1)     -2 +1
+  step 18: (move curiosity sitec sitea)                         -1 +1
+  step 19: (move curiosity sitea base)                          -1 +1
+  step 20: (deposit curiosity rock3 base bay2)                  -1 +2
+  step 21: (move curiosity base sitea)                          -1 +1
+  step 22: (collect-soft curiosity rock1 sitea bay2)            -2 +1
+  step 23: (move curiosity sitea base)                          -1 +1
+  step 24: (deposit curiosity rock1 base bay2)                  -1 +2
+  step 25: (deposit curiosity rock5 base bay1)                  -1 +2
+
+  Final state (dynamic facts):
+    (bay-empty bay1)
+    (bay-empty bay2)
+    (has-drill curiosity drill1)
+    (rock-at rock1 base)
+    (rock-at rock2 base)
+    (rock-at rock3 base)
+    (rock-at rock4 base)
+    (rock-at rock5 base)
+    (rover-at curiosity base)
+  Goal satisfied: True
+  heuristic never exceeds true cost-to-go along this plan: True

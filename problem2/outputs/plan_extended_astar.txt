@@ -1,0 +1,2 @@
+=== extended | A* with h_max (optimal, admissible)
+  NO PLAN within the budget: stopped after 147433 expansions, 90.0s

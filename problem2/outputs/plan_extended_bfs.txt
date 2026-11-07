@@ -1,0 +1,2 @@
+=== extended | Breadth-first search (optimal)
+  NO PLAN within the budget: stopped after 2758945 expansions, 65.9s

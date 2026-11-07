@@ -1,0 +1,49 @@
+Step 7: CNF clauses
+f1 : ~archivist(V1) v ~verifies(V1,V2) v trusted(V1)
+f2 : ~trusted(V1) v ~access(V1,V2) v ~sealed(V2) v permitted(V1,V2)
+f3 : ~inspects(V1,V2) v ~finds_mark(V1,V2) v verifies(V1,V2)
+f4 : ~stored_in_archive(V1) v sealed(V1)
+f5 : stored_in_archive(scroll_7)
+f6 : access(mira,scroll_7)
+f7a : inspects(mira,scroll_7)
+f7b : finds_mark(mira,scroll_7)
+f8 : archivist(mira)
+ng : ~trusted(mira)
+
+Step 8: Resolution refutation
+Start from the negated goal: ~trusted(mira) 
+
+Step 1
+   current clause : ~trusted(mira)
+   resolve with f1 : ~archivist(V1) v ~verifies(V1,V2) v trusted(V1)
+   on literal     : ~trusted(mira)
+   resolvent      : ~archivist(mira) v ~verifies(mira,V1) 
+
+Step 2
+   current clause : ~archivist(mira) v ~verifies(mira,V1)
+   resolve with f3 : ~inspects(V1,V2) v ~finds_mark(V1,V2) v verifies(V1,V2)
+   on literal     : ~verifies(mira,V1)
+   resolvent      : ~archivist(mira) v ~inspects(mira,V1) v ~finds_mark(mira,V1) 
+
+Step 3
+   current clause : ~archivist(mira) v ~inspects(mira,V1) v ~finds_mark(mira,V1)
+   resolve with f7a : inspects(mira,scroll_7)
+   on literal     : ~inspects(mira,scroll_7)
+   resolvent      : ~archivist(mira) v ~finds_mark(mira,scroll_7) 
+
+Step 4
+   current clause : ~archivist(mira) v ~finds_mark(mira,scroll_7)
+   resolve with f7b : finds_mark(mira,scroll_7)
+   on literal     : ~finds_mark(mira,scroll_7)
+   resolvent      : ~archivist(mira) 
+
+Step 5
+   current clause : ~archivist(mira)
+   resolve with f8 : archivist(mira)
+   on literal     : ~archivist(mira)
+   resolvent      : []  (empty clause) 
+
+Empty clause [] derived: the knowledge base plus ~trusted(mira) is contradictory.
+Therefore trusted(mira) follows from the facts and rules.
+Clauses used in the proof : ['f1', 'f3', 'f7a', 'f7b', 'f8']
+Clauses not needed        : ['f2', 'f4', 'f5', 'f6']

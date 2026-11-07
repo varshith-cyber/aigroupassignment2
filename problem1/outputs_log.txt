@@ -1,0 +1,158 @@
+======================================================================
+PART A - Expert network
+======================================================================
+Edges: [('DayType', 'Occupancy'), ('Weather', 'AC'), ('Occupancy', 'AC'), ('Occupancy', 'ApplianceLoad'), ('AC', 'Energy'), ('ApplianceLoad', 'Energy')]
+  [expert] all CPT rows valid and sum to 1: True
+  Q1: P(E=High)                          = 0.580631
+  Q2: P(E=High | W=Hot)                  = 0.706266
+  Q3: P(E=High | D=Weekend)              = 0.640199
+  Q4: P(E=High | W=Cold, O=High)         = 0.484250
+  Q5: P(W=Hot | E=High)                  = 0.608188
+  Q6: P(A=On | E=High)                   = 0.692867
+  Q7: P(A=On | E=High, L=Heavy)          = 0.649899
+
+Explaining away: Q6 vs Q7
+  P(AC=On | E=High)               = 0.692867
+  P(AC=On | E=High, Load=Heavy)   = 0.649899
+  Seeing a heavy appliance load already gives one reason for high energy,
+  so the high reading is less evidence that the AC was on -> probability falls.
+
+Q1 by hand (sum over A and L, with O marginalised first)
+  P(O=High) = 0.7*0.45 + 0.3*0.80 = 0.5550
+  P(A=On | O=High) = 0.5*0.9 + 0.3*0.4 + 0.2*0.1 = 0.5900
+  P(A=On | O=Low) = 0.5*0.6 + 0.3*0.15 + 0.2*0.05 = 0.3550
+   O=High A=On  L=Heavy: 0.5550*0.5900*0.7500*0.92 = 0.225941
+   O=High A=On  L=Light: 0.5550*0.5900*0.2500*0.68 = 0.055667
+   O=High A=Off L=Heavy: 0.5550*0.4100*0.7500*0.55 = 0.093864
+   O=High A=Off L=Light: 0.5550*0.4100*0.2500*0.12 = 0.006826
+   O=Low  A=On  L=Heavy: 0.4450*0.3550*0.3500*0.92 = 0.050868
+   O=Low  A=On  L=Light: 0.4450*0.3550*0.6500*0.68 = 0.069825
+   O=Low  A=Off L=Heavy: 0.4450*0.6450*0.3500*0.55 = 0.055252
+   O=Low  A=Off L=Light: 0.4450*0.6450*0.6500*0.12 = 0.022388
+  Sum = 0.580631   code gives 0.580631   match: True
+
+======================================================================
+PART B - Conditional independence
+======================================================================
+  Weather _|_ DayType                        d-separated: True
+  Weather _|_ DayType | Energy               d-separated: False
+  Weather _|_ ApplianceLoad | Occupancy      d-separated: True
+  Numerical checks:
+   P(W=Hot | E=High)                 = 0.608188
+   P(W=Hot | E=High, D=Weekend)      = 0.599751   (differ -> dependent given E)
+   P(W=Hot)                          = 0.500000
+   P(W=Hot | D=Weekend)              = 0.500000
+   P(W=Hot | O=High)                 = 0.500000
+   P(W=Hot | O=High, L=Heavy)        = 0.500000   (equal -> independent)
+
+======================================================================
+PART C - Synthetic data (seed = 42)
+======================================================================
+
+  n = 500
+    Weather=Hot   freq = 0.5100  (true 0.50)
+    Weather=Mild  freq = 0.2860  (true 0.30)
+    Weather=Cold  freq = 0.2040  (true 0.20)
+    (Weather, Occupancy) counts:
+      (Hot , High) : 155
+      (Hot , Low ) : 100
+      (Mild, High) : 75
+      (Mild, Low ) : 68
+      (Cold, High) : 51
+      (Cold, Low ) : 51
+
+  n = 5000
+    Weather=Hot   freq = 0.4992  (true 0.50)
+    Weather=Mild  freq = 0.3020  (true 0.30)
+    Weather=Cold  freq = 0.1988  (true 0.20)
+    (Weather, Occupancy) counts:
+      (Hot , High) : 1402
+      (Hot , Low ) : 1094
+      (Mild, High) : 823
+      (Mild, Low ) : 687
+      (Cold, High) : 558
+      (Cold, Low ) : 436
+
+  n = 20000
+    Weather=Hot   freq = 0.4953  (true 0.50)
+    Weather=Mild  freq = 0.3058  (true 0.30)
+    Weather=Cold  freq = 0.1989  (true 0.20)
+    (Weather, Occupancy) counts:
+      (Hot , High) : 5520
+      (Hot , Low ) : 4386
+      (Mild, High) : 3416
+      (Mild, Low ) : 2700
+      (Cold, High) : 2228
+      (Cold, Low ) : 1750
+
+======================================================================
+PART D / E - Learning and comparison
+======================================================================
+
+--- n = 500 ---
+
+  AC CPT  P(AC = On | Weather, Occupancy)
+  Weather Occ       Expert       MLE      BDeu
+  Hot     High      0.9000    0.8516    0.8479
+  Hot     Low       0.6000    0.6600    0.6574
+  Mild    High      0.4000    0.3600    0.3630
+  Mild    Low       0.1500    0.1765    0.1842
+  Cold    High      0.1000    0.0980    0.1108
+  Cold    Low       0.0500    0.0196    0.0348
+
+  Query     Expert       MLE     Bayes   |Diff|MLE   |Diff|Bay
+  Q1        0.5806    0.5570    0.5559      0.0237      0.0247
+  Q2        0.7063    0.7050    0.6991      0.0013      0.0072
+  Q3        0.6402    0.6092    0.6046      0.0310      0.0356
+  Q4        0.4843    0.4203    0.4268      0.0639      0.0575
+  Q5        0.6082    0.6455    0.6370      0.0373      0.0288
+  Q6        0.6929    0.7280    0.7236      0.0351      0.0307
+  Q7        0.6499    0.6584    0.6560      0.0085      0.0061
+  mean |diff|: MLE=0.02868  Bayesian=0.02722
+  Largest MLE error at n=500: Q4 (P(E=High | W=Cold, O=High))
+  rows in the data matching that evidence: 51 of 500
+  Per-query MLE errors: Q1=0.0237, Q2=0.0013, Q3=0.0310, Q4=0.0639, Q5=0.0373, Q6=0.0351, Q7=0.0085
+
+--- n = 5000 ---
+
+  AC CPT  P(AC = On | Weather, Occupancy)
+  Weather Occ       Expert       MLE      BDeu
+  Hot     High      0.9000    0.8937    0.8933
+  Hot     Low       0.6000    0.6188    0.6186
+  Mild    High      0.4000    0.3900    0.3903
+  Mild    Low       0.1500    0.1514    0.1522
+  Cold    High      0.1000    0.1039    0.1051
+  Cold    Low       0.0500    0.0482    0.0499
+
+  Query     Expert       MLE     Bayes   |Diff|MLE   |Diff|Bay
+  Q1        0.5806    0.5794    0.5793      0.0012      0.0014
+  Q2        0.7063    0.7034    0.7028      0.0029      0.0035
+  Q3        0.6402    0.6399    0.6393      0.0003      0.0009
+  Q4        0.4843    0.4860    0.4863      0.0017      0.0021
+  Q5        0.6082    0.6060    0.6053      0.0022      0.0029
+  Q6        0.6929    0.6884    0.6881      0.0044      0.0048
+  Q7        0.6499    0.6496    0.6493      0.0003      0.0006
+  mean |diff|: MLE=0.00187  Bayesian=0.00230
+
+--- n = 20000 ---
+
+  AC CPT  P(AC = On | Weather, Occupancy)
+  Weather Occ       Expert       MLE      BDeu
+  Hot     High      0.9000    0.9013    0.9011
+  Hot     Low       0.6000    0.6008    0.6007
+  Mild    High      0.4000    0.3970    0.3970
+  Mild    Low       0.1500    0.1478    0.1480
+  Cold    High      0.1000    0.1041    0.1044
+  Cold    Low       0.0500    0.0537    0.0541
+
+  Query     Expert       MLE     Bayes   |Diff|MLE   |Diff|Bay
+  Q1        0.5806    0.5768    0.5768      0.0038      0.0038
+  Q2        0.7063    0.7028    0.7026      0.0035      0.0036
+  Q3        0.6402    0.6381    0.6379      0.0021      0.0023
+  Q4        0.4843    0.4838    0.4839      0.0004      0.0004
+  Q5        0.6082    0.6035    0.6033      0.0047      0.0049
+  Q6        0.6929    0.6922    0.6921      0.0007      0.0008
+  Q7        0.6499    0.6499    0.6499      0.0001      0.0000
+  mean |diff|: MLE=0.00219  Bayesian=0.00226
+
+Saved plots to /home/claude/assignment2/problem1/outputs
